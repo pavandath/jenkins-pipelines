@@ -1,32 +1,27 @@
-//https://www.jenkins.io/doc/book/pipeline/shared-libraries/#defining-shared-libraries
-//methods
-//jenkins stages
-
-//Define package
+// Define the package 
 package com.pavan.builds;
 
+// Define a Calculator class 
 
-// all the methods 
 class Calculator {
+    // Define a variable to hold the jenkins context 
     def jenkins
+
+    // Constructor tom intiliase the Calculator class with the jenkins instance 
     Calculator(jenkins) {
         this.jenkins = jenkins
     }
 
 
+    // method to perform addition of 2 numbers
+    def add(firstNumber, secondNumber) {
+        // logical code for addition
+        return firstNumber + secondNumber
+    }
+    // Example Usage: add(2,3)
 
-// Addition Method
-def add(firstNumber, secondNumber){
-    // Logical code 
-    return firstNumber+secondNumber
+    // Method to perform multiplication of 2 numbers 
+    def multiply(firstNumber, secondNumber) {
+        return firstNumber*secondNumber
+    }
 }
-
-// Multiplication Method
-def multiply(firstNumber, secondNumber){
-    // Logical Code
-   return firstNumber*secondNumber
-}
-}
-
-// Sub Method
-
