@@ -1,33 +1,31 @@
-def call(Map PipelineParams) {
-    // Notice: No "import" here - this is correct.
-    def calculator = new com.pavan.builds.Calculator(this) // full class path used here
+// Pipeline + groovy 
+// import the Calcclulator class from com.pavan.build package
+import com.pavan.builds.Calculator
+
+def call(Map pipelineparams){
+    // An instance of the class called calculator is created
+    Calculator calculator = new Calculator(this)
 
     pipeline {
-        agent any
-
+        agent any 
         environment {
-            APPLICATION_NAME = "${PipelineParams.appName}"
+            APP_NAME = "${pipelineparams.appName}" // this value should be coming from microservices 
         }
-
         stages {
-            stage('Build') {
-                steps {
-                    echo "Building ${env.APPLICATION_NAME}"
-                }
-            }
-
-            stage('Calculate') {
+            stage('AdditionStage') {
                 steps {
                     script {
-                        def sum = calculator.add(2, 3)
-                        echo "Sum: ${sum}"
+                    echo "Printing Sum of 2 numbers"
+                    println calculator.add(3,4) // add expects 2 parameters
+                    echo "****** Microservice Name is: ${APP_NAME} ********"
                     }
+                }
+            }
+            stage ('SecondStage') {
+                steps {
+                    echo "Printing second stage"
                 }
             }
         }
     }
-}
-
-def newcal(a, b) {
-    return a + b
 }
