@@ -1,55 +1,33 @@
-import com.pavan.builds.Calculator
+def call(Map PipelineParams) {
+    // Notice: No "import" here - this is correct.
+    def calculator = new com.pavan.builds.Calculator(this) // full class path used here
 
-//define a funtion called 'call' that accepts  a map parameter pipeline parameter
-def call(Map PipelineParams){
-    //create the instance of a calculator calculator
-    Calculator calculator = new calculator(this)
+    pipeline {
+        agent { label 'docker-slave' }
 
-pipeline{
-    agent label 'docker-slave'
-    //set an environment variable APPLICATION_NAME
-    APPLICATION_NAME = ${pipelineparams.appname}   //keep appname as anything
-    stages{
-        stage ('Build'){
-            steps{
-                echo "****************Building the stage********************"
-                echo "**************Starting the ${env.APPLICATION_NAME}**************"
-            }
+        environment {
+            APPLICATION_NAME = "${PipelineParams.appName}"
         }
-        stage('calculate'){
-            steps{
-                script{
-                    echo "Calling calculator method from source folder"
-                    echo "********PRINTING SUM OF TWO NUMBERS**********"
-                    //Call the add method
 
+        stages {
+            stage('Build') {
+                steps {
+                    echo "Building ${env.APPLICATION_NAME}"
                 }
             }
 
-        }
-        stage ('Test'){
-            steps{
-                echo "Testing the project"
-                calculator.add(2,3)
-            }
-        }
-        stage('DevDeploy'){
-            steps{
-                echo "Deploying the project to dev environment"
-                script{
-                    newcal.call(4,5)
+            stage('Calculate') {
+                steps {
+                    script {
+                        def sum = calculator.add(2, 3)
+                        echo "Sum: ${sum}"
+                    }
                 }
             }
         }
     }
 }
-}
 
-def newcal(thirdnumber,fourthnumber){
-    return thirdnumber+fourthnumber
+def newcal(a, b) {
+    return a + b
 }
-
-//variable placeholder
-//Local variable : ${variable}
-//Env variable : ${env.variable}
-//parameters section : ${pipelineparams.variable}

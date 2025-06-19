@@ -3,26 +3,20 @@
 //jenkins stages
 
 //Define package
-package com.pavan.builds;
+package com.pavan.builds
 
-//Define calculator class
-
-class Calculator{
-    //Define variable to hold the jenkins context
+class Calculator {
     def jenkins
 
-    //constructor to initialise the calculator  class with jenkins instance
-    Calculator(jenkins){
+    Calculator(jenkins) {
         this.jenkins = jenkins
-    } 
-    
-    //method to perform addition of two numbers
-    def add(firstnumber,secondnumber){
-        return firstnumber+secondnumber
     }
 
-    //method for mutiply
-    def multiply(firstnumber,secondnumber){
-        return firstnumber*secondnumber
+    def add(a, b) {
+        return a + b
+    }
+
+    def multiply(a, b) {
+        return a * b
     }
 }
