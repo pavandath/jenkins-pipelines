@@ -3,7 +3,7 @@ def call(Map PipelineParams) {
     def calculator = new com.pavan.builds.Calculator(this) // full class path used here
 
     pipeline {
-        agent { label 'docker-slave' }
+        agent any
 
         environment {
             APPLICATION_NAME = "${PipelineParams.appName}"
