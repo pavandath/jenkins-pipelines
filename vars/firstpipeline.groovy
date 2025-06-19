@@ -1,4 +1,4 @@
-import package com.pavan.builds.Calculator;
+import package com.pavan.builds.Calculator
 
 //define a funtion called 'call' that accepts  a map parameter pipeline parameter
 def call(Map PipelineParams){
